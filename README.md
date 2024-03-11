@@ -1,7 +1,12 @@
 # Hotel service
 
-This sample application contains a simple hotel management service that enable users to create and view orders and food menus. The service is implemented using Ballerina and the front-end is implemented using React.
-To run the application you need to have install Ballerina. You can download it from [here](https://ballerina.io/downloads/). And also you need to install NPM as well. You can download it from [here](https://www.npmjs.com/get-npm).
+This sample application contains a simple hotel management service that enable users to create and view orders and food menus. The service is implemented using Ballerina. The front-end is implemented using React.
+
+## Prerequsites
+
+1. Install [Ballerina](https://ballerina.io/downloads/)
+
+2. Install [NPM](https://www.npmjs.com/get-npm)
 
 ## High-level view of the System
 
@@ -9,14 +14,15 @@ To run the application you need to have install Ballerina. You can download it f
 
 ## How to run the application
 
-1. First you need to clone the repository using the following command.
-```
-   https://github.com/SasinduDilshara/hotel_order_service.git
+1. Clone the repository using the following command.
+
+```bash
+   git clone https://github.com/SasinduDilshara/hotel_order_service.git
 ```
 
-2. Then you need to navigate to the `hotel_order_service` directory.
+2. NAvigate to `hotel_order_service` directory.
 
-```
+```bash
     cd hotel_order_service
 ```
 
@@ -27,12 +33,12 @@ All the user requests will be passing through this gateway service.
 * menu_server - This service contains the API endpoints that related to the food menu of the hotel.
 * order_server - This service contains the API endpoints that related to the order management of the hotel.
 
-To start these services, simple navigate to each server directory and run the following command.
-```
+To start these services, simply navigate to each server directory and run the following command.
+```bash
     bal run
 ```
 
-4. Then you need to navigate to the `hotel_order_service/webapp` directory and start the frontend application service
+4. Finally, navigate to the `hotel_order_service/webapp` directory and start the frontend application service
 
 ```
     npm i
