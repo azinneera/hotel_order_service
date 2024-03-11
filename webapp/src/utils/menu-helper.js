@@ -1,14 +1,9 @@
 const orderMenu = {
-    "M-1": "Classic Burger",
-    "M-2": "Vegetarian Pizza",
-    "M-3": "Grilled Chicken Salad",
-    "M-4": "Pasta Alfredo",
-    "M-5": "Fish and Chips",
-    "M-6": "Steak Sandwich",
-    "M-7": "Caesar Salad",
-    "M-8": "Margherita Pizza",
-    "M-9": "BBQ Ribs",
-    "M-10": "Mushroom Risotto"
+    "M1": "Classic Burger",
+    "M2": "Vegetarian Pizza",
+    "M3": "Grilled Chicken Salad",
+    "M4": "Pasta Alfredo",
+    "M5": "Fish and Chips"
   };
   
 export const constructMenuItems = (items) => {
