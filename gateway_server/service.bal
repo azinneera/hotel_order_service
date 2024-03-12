@@ -11,45 +11,47 @@ final graphql:Client menuServiceClient = check new ("localhost:9093/ms");
 }
 service /app on new http:Listener(9090) {
 
-    isolated resource function get orders/menus() returns MenuItem[]|http:InternalServerError {
-        MenuItemResponse|error res = menuServiceClient->execute("query { menus { id item price isAvailableNow} }");
-
-        if res is error {
-            return http:INTERNAL_SERVER_ERROR;
-        }
+    isolated resource function get orders/menus() returns MenuItem[]|error {
+        MenuItemResponse res = check menuServiceClient->execute("query { menus { id item price isAvailableNow} }");
         return res.data.menus;
     }
 
-    isolated resource function get orders() returns Order[]|http:InternalServerError {
-        Order[]|error res = orderServiceClient->get("/sales/orders/");
-
-        if res is error {
-            return http:INTERNAL_SERVER_ERROR;
-        }
-        return res;
+    isolated resource function get orders() returns Order[]|error {
+        return orderServiceClient->get("/sales/orders/");
     }
 
-    isolated resource function get orders/[string orderId]() returns Order|http:InternalServerError|http:ApplicationResponseError {
-        Order|http:ClientError res = orderServiceClient->get("/sales/orders/" + orderId);
-
-        if res is http:ApplicationResponseError {
-            return res;
-        }
-        if res is http:ClientError {
-            return http:INTERNAL_SERVER_ERROR;
-        }
-        return res;
+    isolated resource function get orders/[string orderId]() returns Order|error {
+        return orderServiceClient->get("/sales/orders/" + orderId);
     }
 
-    isolated resource function post orders(Order orderRequest) returns Order|http:InternalServerError|http:ApplicationResponseError {
-        Order|http:ClientError res = orderServiceClient->post("/sales/orders/", orderRequest, targetType = Order);
-        
-        if res is http:ApplicationResponseError {
-            return res;
-        }
-        if res is http:ClientError {
-            return http:INTERNAL_SERVER_ERROR;
-        }
-        return res;
+    isolated resource function post orders(Order orderRequest) returns Order|error {
+        return orderServiceClient->post("/sales/orders/", orderRequest);
     }
 }
+
+enum MenuIds {
+    M1 = "M1",
+    M2 = "M2",
+    M3 = "M3",
+    M4 = "M4",
+    M5 = "M5"
+};
+
+type Order record {|
+    readonly string id;
+    string customerId;
+    MenuIds[] itemIds;
+    string date;
+    float totalPrice;
+|};
+
+type MenuItem record {|
+    readonly string id;
+    string item;
+    float price;
+    boolean isAvailableNow;
+|};
+
+type MenuItemResponse record {|
+    record {| MenuItem[] menus; |} data;
+|};
