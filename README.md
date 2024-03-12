@@ -1,16 +1,23 @@
 # Hotel service
 
-This sample application contains a simple hotel management service that enable users to create and view orders and food menus. The service is implemented using Ballerina. The front-end is implemented using React.
+This sample application contains a simple hotel management service. Users can create and view orders and food menus through a web page using this application.
+
+This sample application containg folowing main components.
+1. Frontend Application - This is a simple web application developed by React that will allow users to create and view orders and food menus.
+2. Gateway Service - This is the service that will responsible for connecting front-end application with other microservices.
+3. Menu Service - This service contains the API endpoints that related to the food menu of the hotel.
+4. Order Service - This service contains the API endpoints that related to the order management of the hotel.
+
+## High-level view of the System
+
+![Architecture](highlevel_architecture.png)
+
 
 ## Prerequsites
 
 1. Install [Ballerina](https://ballerina.io/downloads/)
 
 2. Install [NPM](https://www.npmjs.com/get-npm)
-
-## High-level view of the System
-
-![Architecture](highlevel_architecture.png)
 
 ## How to run the application
 
@@ -20,18 +27,13 @@ This sample application contains a simple hotel management service that enable u
    git clone https://github.com/SasinduDilshara/hotel_order_service.git
 ```
 
-2. NAvigate to `hotel_order_service` directory.
+2. Navigate to `hotel_order_service` directory.
 
 ```bash
     cd hotel_order_service
 ```
 
-3.There are three services under the `hotel_order_service` directory.
-
-* gateway_server - This is the service that will responsible for connecting front-end application with other microservices.
-All the user requests will be passing through this gateway service.
-* menu_server - This service contains the API endpoints that related to the food menu of the hotel.
-* order_server - This service contains the API endpoints that related to the order management of the hotel.
+3.There are three services under the `hotel_order_service` directory. These are the `menu_service`, `order_service` and `gateway_service`.
 
 To start these services, simply navigate to each server directory and run the following command.
 ```bash
