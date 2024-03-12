@@ -1,7 +1,7 @@
-import ballerina/http;
 import ballerina/graphql;
+import ballerina/http;
 
-final http:Client orderServiceClient = check new("http://localhost:9092");
+final http:Client orderServiceClient = check new ("http://localhost:9092");
 final graphql:Client menuServiceClient = check new ("localhost:9093/ms");
 
 @http:ServiceConfig {
@@ -21,7 +21,7 @@ service /app on new http:Listener(9090) {
     }
 
     isolated resource function get orders/[string orderId]() returns Order|error {
-        return orderServiceClient->get("/sales/orders/" + orderId);
+        return orderServiceClient->get(string `/sales/orders/${orderId}`);
     }
 
     isolated resource function post orders(Order orderRequest) returns Order|error {
@@ -53,5 +53,5 @@ type MenuItem record {|
 |};
 
 type MenuItemResponse record {|
-    record {| MenuItem[] menus; |} data;
+    record {|MenuItem[] menus;|} data;
 |};

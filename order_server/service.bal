@@ -1,9 +1,9 @@
 import ballerina/http;
 
 table<Order> key(id) orders = table [
-    {id: "O-1", customerId: "C-123", totalPrice: 50.25, date: "2024-02-28", itemIds: ["M1", "M2", "M3"]},
-    {id: "O-2", customerId: "C-124", totalPrice: 35.50, date: "2024-02-27", itemIds: ["M4", "M5"]},
-    {id: "O-3", customerId: "C-125", totalPrice: 75.00, date: "2024-02-26", itemIds: ["M2", "M3", "M4"]}
+    {id: "O1", customerId: "C123", totalPrice: 50.25, date: "2024-02-28", itemIds: ["M1", "M2", "M3"]},
+    {id: "O2", customerId: "C124", totalPrice: 35.50, date: "2024-02-27", itemIds: ["M4", "M5"]},
+    {id: "O3", customerId: "C125", totalPrice: 75.00, date: "2024-02-26", itemIds: ["M2", "M3", "M4"]}
 ];
 
 @http:ServiceConfig {
@@ -12,20 +12,24 @@ table<Order> key(id) orders = table [
     }
 }
 service /sales on new http:Listener(9092) {
+
+    // GET http:localhost:9092/sales/orders
     resource function get orders() returns Order[] {
         return orders.toArray();
     };
 
+    // GET http:localhost:9092/sales/orders/<Order-ID>
     resource function get orders/[string id]() returns Order|http:NotFound {
         if orders.hasKey(id) {
             return orders.get(id);
         }
-        return { body: string `Order not found. Order ID: ${id}` };
+        return {body: string `order not found with id: ${id}`};
     };
 
+    // POST http:localhost:9092/sales/orders
     resource function post orders(Order orderRequest) returns Order|http:BadRequest {
         if orders.hasKey(orderRequest.id) {
-            return { body: string `Order id already exists. Order ID: ${orderRequest.id}` };
+            return {body: string `order already exists with id: ${orderRequest.id}`};
         }
         orders.add(orderRequest);
         return orderRequest;
