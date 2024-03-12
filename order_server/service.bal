@@ -6,11 +6,6 @@ table<Order> key(id) orders = table [
     {id: "O3", customerId: "C125", totalPrice: 75.00, date: "2024-02-26", itemIds: ["M2", "M3", "M4"]}
 ];
 
-@http:ServiceConfig {
-    cors: {
-        allowOrigins: ["*"]
-    }
-}
 service /sales on new http:Listener(9092) {
 
     // GET http:localhost:9092/sales/orders
@@ -23,13 +18,13 @@ service /sales on new http:Listener(9092) {
         if orders.hasKey(id) {
             return orders.get(id);
         }
-        return {body: string `order not found with id: ${id}`};
+        return {body: string `Order not found for id: ${id}`};
     };
 
     // POST http:localhost:9092/sales/orders
     resource function post orders(Order orderRequest) returns Order|http:BadRequest {
         if orders.hasKey(orderRequest.id) {
-            return {body: string `order already exists with id: ${orderRequest.id}`};
+            return {body: string `invalid order found`};
         }
         orders.add(orderRequest);
         return orderRequest;

@@ -1,11 +1,11 @@
 import ballerina/graphql;
 
-type MenuItem record {
+type MenuItem record {|
     readonly string id;
     string item;
     float price;
     boolean isAvailableNow;
-};
+|};
 
 table<MenuItem> key(id) menuItems = table [
     {id: "M1", item: "Classic Burger", price: 9.99, isAvailableNow: true},
@@ -16,9 +16,7 @@ table<MenuItem> key(id) menuItems = table [
 ];
 
 @graphql:ServiceConfig {
-    cors: {
-        allowOrigins: ["*"]
-    }
+    graphiql: {enabled: true}
 }
 service /ms on new graphql:Listener(9093) {
     resource function get menus(string? id) returns MenuItem[] {
