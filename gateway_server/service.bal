@@ -1,8 +1,8 @@
 import ballerina/graphql;
 import ballerina/http;
 
-final http:Client orderServiceClient = check new ("http://localhost:9092");
-final graphql:Client menuServiceClient = check new ("localhost:9093/ms");
+final http:Client orderService = check new ("http://localhost:9092");
+final graphql:Client menuService = check new ("localhost:9093/ms");
 
 @http:ServiceConfig {
     cors: {
@@ -12,20 +12,20 @@ final graphql:Client menuServiceClient = check new ("localhost:9093/ms");
 service /app on new http:Listener(9090) {
 
     isolated resource function get orders/menus() returns MenuItem[]|error {
-        MenuItemResponse res = check menuServiceClient->execute("query { menus { id item price isAvailableNow} }");
+        MenuItemResponse res = check menuService->execute("query { menus { id item price isAvailableNow} }");
         return res.data.menus;
     }
 
     isolated resource function get orders() returns Order[]|error {
-        return orderServiceClient->get("/sales/orders/");
+        return orderService->get("/sales/orders/");
     }
 
     isolated resource function get orders/[string orderId]() returns Order|error {
-        return orderServiceClient->get(string `/sales/orders/${orderId}`);
+        return orderService->get(string `/sales/orders/${orderId}`);
     }
 
     isolated resource function post orders(Order orderRequest) returns Order|error {
-        return orderServiceClient->post("/sales/orders/", orderRequest);
+        return orderService->post("/sales/orders/", orderRequest);
     }
 }
 

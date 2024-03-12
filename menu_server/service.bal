@@ -16,9 +16,7 @@ table<MenuItem> key(id) menuItems = table [
 ];
 
 @graphql:ServiceConfig {
-    cors: {
-        allowOrigins: ["*"]
-    }
+    graphiql: {enabled: true}
 }
 service /ms on new graphql:Listener(9093) {
     resource function get menus(string? id) returns MenuItem[] {
