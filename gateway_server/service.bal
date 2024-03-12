@@ -21,7 +21,7 @@ service /app on new http:Listener(9090) {
     }
 
     isolated resource function get orders/[string orderId]() returns Order|error {
-        return orderServiceClient->get("/sales/orders/" + orderId);
+        return orderServiceClient->get(string `/sales/orders/${orderId}`);
     }
 
     isolated resource function post orders(Order orderRequest) returns Order|error {

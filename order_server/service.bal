@@ -23,13 +23,13 @@ service /sales on new http:Listener(9092) {
         if orders.hasKey(id) {
             return orders.get(id);
         }
-        return { body: "order not found with id: " + id};
+        return { body: string `order not found with id: ${id}`};
     };
 
     // POST http:localhost:9092/sales/orders
     resource function post orders(Order orderRequest) returns Order|http:BadRequest {
         if orders.hasKey(orderRequest.id) {
-            return { body: "order already exists with id: " + orderRequest.id};
+            return { body: string `order already exists with id: ${orderRequest.id}`};
         }
         orders.add(orderRequest);
         return orderRequest;
