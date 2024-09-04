@@ -1,11 +1,11 @@
 import ballerina/graphql;
 
-type MenuItem record {|
+type MenuItem record {
     readonly string id;
     string item;
     float price;
-    boolean isAvailableNow;
-|};
+    readonly boolean isAvailableNow;
+};
 
 table<MenuItem> key(id) menuItems = table [
     {id: "M1", item: "Classic Burger", price: 9.99, isAvailableNow: true},

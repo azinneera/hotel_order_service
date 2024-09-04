@@ -49,7 +49,7 @@ type MenuItem record {|
     readonly string id;
     string item;
     float price;
-    boolean isAvailableNow;
+    readonly boolean isAvailableNow;
 |};
 
 type MenuItemResponse record {|
