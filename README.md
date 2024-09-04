@@ -35,8 +35,21 @@ This sample application containg folowing main components.
 
 3.There are three services under the `hotel_order_service` directory. These are the `menu_service`, `order_service` and `gateway_service`.
 
-To start these services, simply navigate to each server directory and run the following command.
+3.1 Start the order_service
 ```bash
+    cd order_service
+    bal run
+```
+
+3.2 Start the menu service
+```bash
+    cd menu_service
+    bal run
+```
+
+3.3 Start the gateway_service
+```bash
+    cd gateway_service
     bal run
 ```
 
