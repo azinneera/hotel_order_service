@@ -37,19 +37,19 @@ This sample application containg folowing main components.
 
 3.1 Start the order_service
 ```bash
-    cd order_service
+    cd order_server
     bal run
 ```
 
 3.2 Start the menu service
 ```bash
-    cd menu_service
+    cd menu_server
     bal run
 ```
 
 3.3 Start the gateway_service
 ```bash
-    cd gateway_service
+    cd gateway_server
     bal run
 ```
 
